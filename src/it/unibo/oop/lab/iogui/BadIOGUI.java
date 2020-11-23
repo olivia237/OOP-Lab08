@@ -5,14 +5,19 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
 import java.util.Random;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import java.util.List;
 
 /**
  * This class is a simple application that writes a random number on a file.
@@ -62,8 +67,40 @@ public class BadIOGUI {
                 }
             }
         });
+        
+        final JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
+        canvas.add(panel,BorderLayout.CENTER);
+        panel.add(new JButton("write"));
+        
+        final JButton read = new JButton("read");
+        panel.add(read);
+        read.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent e) {
+               System.out.println("sucesso");
+                
+            }
+            
+            
+        });
+        
+    
+    read.addActionListener(new ActionListener() {
+        public void actionPerformed(final ActionEvent e) {
+            try {
+            final List<String> rige = Files.readAllLines(new File(PATH).toPath());
+                    for (final String line : rige) {
+                        System.out.println(line);
+                    }
+                    
+        } catch(IOException e1) {
+            JOptionPane.showMessageDialog(frame, e1, "error", JOptionPane.ERROR_MESSAGE);
+            e1.printStackTrace();
+        }
+        }
+        
+    });
     }
-
     private void display() {
         /*
          * Make the frame one fifth the resolution of the screen. This very method is
