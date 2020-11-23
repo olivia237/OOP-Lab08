@@ -1,5 +1,7 @@
 package it.unibo.oop.lab.mvcio;
-
+import java.io.File;
+import java.io.PrintStream;
+import java.io.IOException;
 /**
  * 
  */
@@ -27,5 +29,20 @@ public class Controller {
      * System.getProperty("file.separator"). The combined use of those methods leads
      * to a software that runs correctly on every platform.
      */
-
+    
+    
+    private final File file = new File(System.getProperty("user.home") + System.getProperty("file.sepatrator") + "output.txt");
+    public File currentFile() {
+    return file;
+}
+     public String pathFile() {
+    return file.getPath();
+}
+    public void saveInFile(final String string) throws IOException{
+        try(PrintStream out = new PrintStream(file)){
+            System.out.println(string);
+        }
+    }
+     
+     
 }
