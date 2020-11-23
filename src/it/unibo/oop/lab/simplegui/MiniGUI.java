@@ -5,11 +5,13 @@ package it.unibo.oop.lab.simplegui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,7 +24,8 @@ import javax.swing.JPanel;
  * applications.
  */
 public class MiniGUI {
-
+    final TextField result = new TextField();
+   
     private static final String TITLE = "A very simple GUI application";
     private static final int PROPORTION = 5;
     private final Random rng = new Random();
@@ -44,10 +47,21 @@ public class MiniGUI {
         write.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                System.out.println(rng.nextInt());
+                int value = rng.nextInt();
+                result.setText(Integer.toString(value));
+                System.out.println(value);
             }
         });
-    }
+        
+        final JPanel p = new JPanel();
+        p.setLayout(new BoxLayout(p,BoxLayout.X_AXIS));
+        canvas.add(p,BorderLayout.CENTER);
+        p.add(write); 
+        
+
+        canvas.add(result,BorderLayout.NORTH);
+        
+     }
 
     private void display() {
         /*
